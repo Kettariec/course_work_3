@@ -2,7 +2,10 @@ import os
 import json
 import datetime as DT
 
+
+#ccылка на файл json
 payments_path = os.path.join("data", "operations.json")
+
 
 def load_payments(path):
     """Загружает всю информацию о платежах"""
@@ -11,6 +14,7 @@ def load_payments(path):
     with open(path, 'r', encoding='utf=8') as file:
         data = json.load(file)
         return data
+
 
 def list_of_classes(list):
     """создаёт список экземпляров класса"""
@@ -34,6 +38,7 @@ def list_of_classes(list):
         list_classes.append(copy)
         list_classes.sort(key=lambda payment: payment.date, reverse=True)
     return list_classes
+
 
 class Payment():
     def __init__(self, state, date, description, from_is, to, amount, currency):
@@ -80,9 +85,10 @@ class Payment():
                f'{self.amount} {self.currency}\n')
 
 
-all_payments = load_payments(payments_path)
-list_classes = list_of_classes(all_payments)
+if __name__ == "__main__":
+    all_payments = load_payments(payments_path)
+    list_classes = list_of_classes(all_payments)
+    result = list_classes[:5]
 
-
-for i in range(0, 5):
-    print(list_classes[i].result())
+    for i in result:
+        print(i.result())
